@@ -1,29 +1,16 @@
 'use strict';
 import { drawMarkupList, fetchCardByID } from './fav-functions/helper';
+import { getAllIdFromLocalStorage } from './localStorage.js';
 
 const list = document.querySelector('.fav-list-card');
 const textDefault = document.querySelector('.fav-text-default');
 
 let listId = [];
-const arrayID = [
-  '64f389465ae26083f39b17a7',
-  '64f389465ae26083f39b17a3',
-  '64f389465ae26083f39b17a7',
-  '64f389465ae26083f39b17a3',
-  '64f389465ae26083f39b17a7',
-  '64f389465ae26083f39b17a3',
-  '64f389465ae26083f39b17a7',
-  '64f389465ae26083f39b17a3',
-];
 let markupCards = '';
 let getData = [];
 
 const readFromLS = async () => {
-  listId = JSON.parse(localStorage.getItem('keyID'));
-
-  if (listId === null) {
-    listId = [];
-  }
+  listId = getAllIdFromLocalStorage();
 
   if (listId.length === 0) {
     if (textDefault.classList.contains('is-visible')) {
@@ -44,3 +31,5 @@ const readFromLS = async () => {
     }
   }
 };
+
+readFromLS()
