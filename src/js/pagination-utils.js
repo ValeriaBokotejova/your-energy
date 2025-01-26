@@ -80,6 +80,9 @@ const generatePaginationItem = (idx, page, title, accent, outline) => {
 };
 
 const generatePaginationItems = (currentPage, totalPages) => {
+  if (totalPages < 2) {
+    return ''
+  }
   const pages = generatePaginationItemObjects(currentPage, totalPages);
   return pages.reduce((acc, el) => {
     return acc + generatePaginationItem(...el);
