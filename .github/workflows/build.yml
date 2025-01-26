@@ -2,11 +2,12 @@ name: Build
 
 on:
   pull_request:
-    types: [ opened, edited, reopened, review_requested ]
     branches: [ main ]
+    paths:
+      - 'src/**'
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -16,3 +17,11 @@ jobs:
         run: |
           npm install
           npm run build
+      
+      - name: Validate HTML
+        uses: anishathalye/proof-html@v2
+        with:
+          directory: ./dist
+          disable_external: true
+          swap_urls: |
+            {"your-energy/": "./"}

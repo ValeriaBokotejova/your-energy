@@ -1,4 +1,4 @@
-import Exercise from './exercise.Class';
+import Exercise from './exercise.js';
 
 const getDynamicId = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ) {
       modalOverlay.classList.add('hidden');
       modalPage.classList.add('hidden');
+      modalPage.innerHTML = '';
       body.classList.remove('no-scroll');
     }
   });

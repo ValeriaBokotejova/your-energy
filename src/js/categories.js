@@ -1,24 +1,28 @@
 'use strict';
 
 import { fetchCategories } from './api.js';
-import { getGategoriesOnPage, getResolution } from './utils.js';
-import { ShowExercisesByCategory } from './exercises.js';
-import ExerciseFilterType from './exerciseFilterType.js';
+import { showPagination, hidePagination } from './pagination.js';
+import { getGategoriesOnPage } from './utils.js';
+import { ShowExercisesByCategory, HideExercises } from './exercises.js';
+import ExerciseFilterType from './exercise.filter-type.js';
 import { renderFilterByCategory } from './filters.js';
 import { showLoader, hideLoader } from './loader.js';
-
 
 const categoryListEl = document.querySelector('.category-list');
 const categoryContainerEl = document.querySelector('.category-container');
 
-export const createGalleryCards = categoriesArr => {
+export const createCategoriesItems = categoriesArr => {
   return categoriesArr.reduce((acc, el) => {
     return (
       acc +
       `<li class="category-card" data-name="${el.name}" data-filter="${el.filter}">
       <img class="gallery-image"
            src="${el.imgURL}"
-           alt="${el.name}"/>
+           alt="${el.name}"
+           loading="lazy"
+           width="335"
+           height="225"
+           />
             <div class="category-title">
               <h3>${el.name}</h3>
               <p>${el.filter}</p>
@@ -36,18 +40,24 @@ export const showCategories = async (filter, queriedPage) => {
       queriedPage,
       getGategoriesOnPage()
     );
-    const { page, perPage, totalPages, results } = response.data;
+    const { page, totalPages, results } = response.data;
 
     if (results.length === 0) {
-      console.log('There are no categories for the specified filter');
-      return { page, perPage, totalPages };
+      categoryListEl.innerHTML = '';
     }
 
-    categoryListEl.innerHTML = createGalleryCards(results);
+    categoryListEl.innerHTML = createCategoriesItems(results);
     categoryListEl.addEventListener('click', onCategoryListElClick);
     categoryContainerEl.classList.add('active');
-
-    return { page, perPage, totalPages };
+    HideExercises();
+    showPagination(
+      '.pagination-container',
+      queriedPage,
+      totalPages,
+      showCategories,
+      filter,
+      page
+    );
   } catch (err) {
     console.log(err);
   } finally {
@@ -57,13 +67,13 @@ export const showCategories = async (filter, queriedPage) => {
 
 export const hideCategories = () => {
   categoryListEl.innerHTML = '';
+  hidePagination('.pagination-container');
   categoryListEl.removeEventListener('click', onCategoryListElClick);
   categoryContainerEl.classList.remove('active');
 };
 
 const onCategoryListElClick = event => {
   event.preventDefault();
-  console.log(getResolution());
   if (event.target === event.currentTarget) {
     return;
   }
@@ -72,13 +82,18 @@ const onCategoryListElClick = event => {
   const name = targetCard.getAttribute('data-name');
   hideCategories();
   ShowExercisesByCategory(findExerciseFilterType(filter), name);
-  renderFilterByCategory(filter, name)
-  console.log(`Execute function for rendering exercises (${filter}; ${name})`);
+  renderFilterByCategory(filter, name);
 };
 
-const findExerciseFilterType = (filter) => {
-  const lowerCaseFilter = filter.toLowerCase();
+const findExerciseFilterType = filter => {
+  var lowerCaseFilter = filter.toLowerCase();
+  if (lowerCaseFilter === 'body parts') {
+    lowerCaseFilter = 'bodypart';
+  }
   return Object.values(ExerciseFilterType).find(
     value => value === lowerCaseFilter
   );
 };
+
+if (categoryContainerEl)
+  showCategories('Muscles', 1);

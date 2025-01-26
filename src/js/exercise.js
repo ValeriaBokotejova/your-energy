@@ -1,6 +1,9 @@
 import { fetchExerciseById } from './api.js';
 import sprite from '../img/sprite.svg';
-import { createRating } from './createRating.js';
+import noImage from '../img/no-image.jpg';
+import { createRating } from './create-rating.js';
+import { showLoader, hideLoader } from './loader.js';
+import { isIdPresentInLocalStorage} from './localStorage.js'
 
 class Exercise {
   constructor(
@@ -36,21 +39,29 @@ class Exercise {
   }
 
   static async fetchById(id) {
-    const response = await fetchExerciseById(id);
-    const data = response.data;
-    return new Exercise(
-      data._id,
-      data.bodyPart,
-      data.equipment,
-      data.gifUrl,
-      data.name,
-      data.target,
-      data.description,
-      data.rating,
-      data.burnedCalories,
-      data.time,
-      data.popularity
-    );
+    try {
+      showLoader();
+      const response = await fetchExerciseById(id);
+      const data = response.data;
+      return new Exercise(
+        data._id,
+        data.bodyPart,
+        data.equipment,
+        data.gifUrl,
+        data.name,
+        data.target,
+        data.description,
+        data.rating,
+        data.burnedCalories,
+        data.time,
+        data.popularity
+      );
+    } catch (error) {
+      console.error('Error fetching exercise:', error);
+      throw error;
+    } finally {
+      hideLoader();
+    }
   }
 
   render(ratingVisible = true, trashVisible = false) {
@@ -128,6 +139,8 @@ class Exercise {
       )
       .join('');
 
+    var isExerciseInFavorites = isIdPresentInLocalStorage(this.id)
+
     card.innerHTML = `
       <button type="button" class="modal-card-close-button">
        <svg width="24" height="24">
@@ -137,7 +150,11 @@ class Exercise {
       <div class="modal-card-header">
       
       <div class="image-container">
-        <img src="${this.gifUrl}" alt="${this.name}" />
+        <img 
+          src="${this.gifUrl}"
+          alt="${this.name}"
+          onerror="this.src='${noImage}'"
+          loading="lazy" />
       </div>
       <div class="modal-card-data">
 
@@ -156,9 +173,9 @@ class Exercise {
         <button type="button" data-exerciseid="${
           this.id
         }" class="modal-card-button favorite-button">
-        <span>Add to favorites</span>
+        <span>${isExerciseInFavorites ? 'Remove favorite' : 'Add to favorites'}</span>
         <svg width="18" height="18">
-            <use href="${sprite}#heart"></use>
+            <use href="${sprite}#heart" fill="${isExerciseInFavorites ? 'black' : 'none'}"></use>
           </svg>
         </button>
         <button type="button" data-exerciseid="${
