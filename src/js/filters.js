@@ -31,6 +31,7 @@ if (canselSearchButton) {
   canselSearchButton.addEventListener('click', function () {
     searchStringElement.value = '';
     this.style.display = 'none';
+    ShowExercisesByCategory(findExerciseFilterType(filterName), categoryName);
   });
 }
 
