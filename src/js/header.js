@@ -4,7 +4,7 @@ export function handleNavClick() {
   const mobileMenuButton = document.querySelector(".menu-btn");
   const closeMobileMenuButton = document.querySelector(".close-btn-menu");
   const menuEl = document.querySelector(".mobile-menu-backdrop");
-  const anchorCloseMenuItems = document.querySelectorAll('.menu-item');
+  const anchorCloseMenuItems = document.querySelectorAll(".menu-item");
 
   if (mobileMenuButton) {
     mobileMenuButton.addEventListener("click", () => {
@@ -19,33 +19,38 @@ export function handleNavClick() {
   }
 
   if (anchorCloseMenuItems) {
-    anchorCloseMenuItems.forEach(anchorItem => {
+    anchorCloseMenuItems.forEach((anchorItem) => {
       anchorItem.addEventListener("click", () => {
         menuEl.classList.remove("is-open");
       });
     });
   }
 
-  const savedPath = localStorage.getItem("activePath");
   const currentPath = window.location.pathname;
 
-  navSelector.querySelectorAll(".nav-link").forEach(navLink => {
-    const navItem = navLink.closest(".nav-item");
+  const updateActiveNav = () => {
+    const savedPath = localStorage.getItem("activePath") || "./index.html";
 
-    if (
-      navLink.getAttribute("href") === savedPath ||
-      navLink.getAttribute("href") === currentPath ||
-      (currentPath === "/" && navLink.getAttribute("href") === "./index.html")
-    ) {
-      navLink.classList.add("js-nav-link-active");
-      navItem.classList.add("js-nav-item-active");
-    } else {
-      navLink.classList.remove("js-nav-link-active");
-      navItem.classList.remove("js-nav-item-active");
-    }
-  });
+    navSelector.querySelectorAll(".nav-link").forEach((navLink) => {
+      const navItem = navLink.closest(".nav-item");
 
-  navSelector.addEventListener("click", event => {
+      if (
+        navLink.getAttribute("href") === savedPath ||
+        navLink.getAttribute("href") === currentPath ||
+        (currentPath === "/" && navLink.getAttribute("href") === "./index.html")
+      ) {
+        navLink.classList.add("js-nav-link-active");
+        navItem.classList.add("js-nav-item-active");
+      } else {
+        navLink.classList.remove("js-nav-link-active");
+        navItem.classList.remove("js-nav-item-active");
+      }
+    });
+  };
+
+  updateActiveNav();
+
+  navSelector.addEventListener("click", (event) => {
     const navLink = event.target.closest(".nav-link");
 
     if (!navLink) {
@@ -54,10 +59,10 @@ export function handleNavClick() {
 
     const navItem = navLink.closest(".nav-item");
 
-    navSelector.querySelectorAll(".js-nav-link-active").forEach(link => {
+    navSelector.querySelectorAll(".js-nav-link-active").forEach((link) => {
       link.classList.remove("js-nav-link-active");
     });
-    navSelector.querySelectorAll(".js-nav-item-active").forEach(item => {
+    navSelector.querySelectorAll(".js-nav-item-active").forEach((item) => {
       item.classList.remove("js-nav-item-active");
     });
 
@@ -68,10 +73,10 @@ export function handleNavClick() {
   });
 
   logoElement.addEventListener("click", () => {
-    navSelector.querySelectorAll(".js-nav-link-active").forEach(link => {
+    navSelector.querySelectorAll(".js-nav-link-active").forEach((link) => {
       link.classList.remove("js-nav-link-active");
     });
-    navSelector.querySelectorAll(".js-nav-item-active").forEach(item => {
+    navSelector.querySelectorAll(".js-nav-item-active").forEach((item) => {
       item.classList.remove("js-nav-item-active");
     });
 
