@@ -23,6 +23,8 @@ const fetchAndRenderFilteredExercises = async (exerciseRequest, queriedPage = 1)
       exerciseRequest,
       exerciseList.page
     );
+    if (queriedPage != 1)
+      exerciseContainer.scrollIntoView({ behavior: 'smooth' });
   } catch (error) {
     console.error(error);
   } finally {

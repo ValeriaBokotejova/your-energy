@@ -58,6 +58,8 @@ export const showCategories = async (filter, queriedPage) => {
       filter,
       page
     );
+    if (queriedPage != 1)
+      categoryContainerEl.scrollIntoView({ behavior: 'smooth' });
   } catch (err) {
     console.log(err);
   } finally {
