@@ -220,7 +220,7 @@
   .info-text-box {
     display: flex;
     gap: 10px;
-    width: 303px;
+    min-width: 303px;
   }
 
   .icon-run-box {
@@ -450,8 +450,19 @@
   }
 
   .list-info-about-body {
+    white-space: nowrap;
     overflow: visible;
-    text-overflow: clip;
+  }
+  .last-elem-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .info-text-body {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

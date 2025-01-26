@@ -49,7 +49,7 @@ const drawMarkupList = listCards => {
             <p class="list-info-about-body">
               Body part: <span class="info-text-body">${obj.bodyPart}</span>
             </p>
-            <p class="list-info-about-body">
+            <p class="list-info-about-body last-elem-text">
               Target: <span class="info-text-body">${obj.target}</span>
             </p>
           </div>
