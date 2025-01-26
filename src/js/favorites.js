@@ -6,7 +6,8 @@ import {
   getAllIdFromLocalStorage,
   removeIdFromLocalStorage,
 } from './localStorage';
-import { showPagination, hidePagination } from './pagination.js';
+import { showPagination } from './pagination.js';
+import { getExercisesOnPage } from './utils.js';
 import { showLoader, hideLoader } from './loader.js';
 import ExerciseList from './exercise.list.js';
 
@@ -42,16 +43,16 @@ if (window.location.pathname.endsWith('/favorites.html')) {
 }
 
 const readFromLS = async (page = 1) => {
-  console.log(page);
   showLoader();
   listId = getAllIdFromLocalStorage();
   const totalPages = Math.ceil(listId.length / 10);
-  const currentPage = page;
-  let currentCards = 0;
+  const itemsPerPage = getExercisesOnPage();
+  let currentPage = page;
+  let currentCards = (page - 1) * itemsPerPage;
   let count = 0;
-  const itemsPerPage = 10;
   if (listId.length === 0) {
     list.innerHTML = '';
+    hideLoader();
     if (textDefault.classList.contains('is-visible')) {
       textDefault.classList.remove('is-visible');
     }
@@ -66,7 +67,6 @@ const readFromLS = async (page = 1) => {
         currentPage
       );
       if (listId.length < 10) {
-        hidePagination('.pagination-container');
         const promise = await Promise.all(listId.map(id => fetchCardByID(id)));
         getData = promise.map(obj => obj.data);
         markupCards = drawMarkupList(getData);
