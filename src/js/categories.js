@@ -86,10 +86,14 @@ const onCategoryListElClick = event => {
 };
 
 const findExerciseFilterType = filter => {
-  const lowerCaseFilter = filter.toLowerCase();
+  var lowerCaseFilter = filter.toLowerCase();
+  if (lowerCaseFilter === 'body parts') {
+    lowerCaseFilter = 'bodypart';
+  }
   return Object.values(ExerciseFilterType).find(
     value => value === lowerCaseFilter
   );
 };
+
 if (categoryContainerEl)
   showCategories('Muscles', 1);
