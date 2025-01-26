@@ -6,22 +6,23 @@ import {
   getAllIdFromLocalStorage,
   removeIdFromLocalStorage,
 } from './localStorage';
+import { showPagination, hidePagination } from './pagination.js';
+import { showLoader, hideLoader } from './loader.js';
+import ExerciseList from './exercise.list.js';
 
 const list = document.querySelector('.fav-list-card');
 const textDefault = document.querySelector('.fav-text-default');
+let exerciseList = new ExerciseList();
 
 let markupCards = '';
 let getData = [];
 let listId = [];
 
-if (window.location.pathname === '/favorites.html') {
+if (window.location.pathname.endsWith('/favorites.html')) {
   list.addEventListener('click', e => {
     if (e.target.nodeName === 'use') {
-      const idCard =
-        e.target.parentNode.parentNode.parentNode.parentNode.parentNode
-          .parentNode.dataset.id;
+      const idCard = e.target.closest('.list-card-item').dataset.id;
       const answer = removeIdFromLocalStorage(idCard);
-
       if (answer) {
         iziToast.success({
           title: 'OK',
@@ -40,9 +41,15 @@ if (window.location.pathname === '/favorites.html') {
   });
 }
 
-const readFromLS = async () => {
+const readFromLS = async (page = 1) => {
+  console.log(page);
+  showLoader();
   listId = getAllIdFromLocalStorage();
-
+  const totalPages = Math.ceil(listId.length / 10);
+  const currentPage = page;
+  let currentCards = 0;
+  let count = 0;
+  const itemsPerPage = 10;
   if (listId.length === 0) {
     list.innerHTML = '';
     if (textDefault.classList.contains('is-visible')) {
@@ -51,12 +58,41 @@ const readFromLS = async () => {
     return;
   } else {
     try {
-      const promise = await Promise.all(listId.map(id => fetchCardByID(id)));
+      showPagination(
+        '.pagination-container',
+        currentPage,
+        totalPages,
+        readFromLS,
+        currentPage
+      );
+      if (listId.length < 10) {
+        hidePagination('.pagination-container');
+        const promise = await Promise.all(listId.map(id => fetchCardByID(id)));
+        getData = promise.map(obj => obj.data);
+        markupCards = drawMarkupList(getData);
+        if (!textDefault.classList.contains('is-visible')) {
+          textDefault.classList.add('is-visible');
+        }
+        hideLoader();
+        list.innerHTML = '';
+        list.insertAdjacentHTML('beforeend', markupCards);
+        return;
+      }
+      const remainingItems = listId.length - currentCards;
+      if (remainingItems === 0) {
+        return;
+      }
+      count = remainingItems < itemsPerPage ? remainingItems : itemsPerPage;
+
+      const sliceList = listId.slice(currentCards, count + currentCards);
+      currentCards += count;
+      const promise = await Promise.all(sliceList.map(id => fetchCardByID(id)));
       getData = promise.map(obj => obj.data);
       markupCards = drawMarkupList(getData);
       if (!textDefault.classList.contains('is-visible')) {
         textDefault.classList.add('is-visible');
       }
+      hideLoader();
       list.innerHTML = '';
       list.insertAdjacentHTML('beforeend', markupCards);
     } catch (error) {

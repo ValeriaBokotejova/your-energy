@@ -1,4 +1,15 @@
 @media screen and (min-width: 375px) {
+  .fav-loader {
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .fav-container {
     margin: 0 auto;
     max-width: 375px;
@@ -354,11 +365,17 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .fav-loader {
+    top: 50%;
+    left: 65%;
+  }
+
   .fav-wrapper-primary {
     display: flex;
   }
 
   .favorite-list-box {
+    margin-left: 32px;
     height: 487px;
     overflow-y: auto;
   }
@@ -380,7 +397,6 @@
   }
 
   .fav-list-card {
-    margin-left: 32px;
     margin-top: 0;
   }
 
