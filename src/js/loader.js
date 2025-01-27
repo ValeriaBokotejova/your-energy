@@ -6,14 +6,6 @@ function constrainLoader() {
   const containerRect = exercisesContainer.getBoundingClientRect();
   const loaderRect = loaderContainer.getBoundingClientRect();
 
-  const constrainedLeft = Math.max(
-    containerRect.left,
-    Math.min(
-      containerRect.right - loaderRect.width,
-      (window.innerWidth - loaderRect.width) / 2
-    )
-  );
-
   const constrainedTop = Math.max(
     containerRect.top,
     Math.min(
@@ -22,15 +14,10 @@ function constrainLoader() {
     )
   );
 
-  loaderContainer.style.left = `${constrainedLeft - containerRect.left}px`;
   loaderContainer.style.top = `${constrainedTop - containerRect.top}px`;
 }
 
 export const showExercisesLoader = () => {
-  if (window.innerWidth >= 1440) {
-    exercisesContainer.style.minHeight = '500px';
-    exercisesContainer.style.width = '900px';
-  }
   loader.classList.remove('hidden');
   constrainLoader();
   window.addEventListener('scroll', constrainLoader);
@@ -38,10 +25,6 @@ export const showExercisesLoader = () => {
 };
 
 export const hideExercisesLoader = () => {
-  if (window.innerWidth >= 1440) {
-    exercisesContainer.style.minHeight = '0';
-    exercisesContainer.style.width = 'auto';
-  }
   loader.classList.add('hidden');
 };
 
