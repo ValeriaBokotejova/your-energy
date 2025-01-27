@@ -11,7 +11,7 @@ const fetchCardByID = async id => {
 const drawMarkupList = listCards => {
   return listCards
     .map(obj => {
-      return `<li class="list-card-item" data-id="${obj._id}">
+      return `<li class="list-card-item" data-id="${obj._id}" data-aos="zoom-in-up">
         <div class="list-card-wrapper">
           <div class="box-buttons">
             <div class="trash-box">

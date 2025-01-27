@@ -33,6 +33,20 @@
     padding-left: 72px;
     margin-bottom: 20px;
     background-color: var(--black);
+    opacity: 0;
+    transform: translateX(-150%);
+    animation: slideBox 600ms ease-out forwards;
+  }
+
+  @keyframes slideBox {
+    0% {
+      opacity: 0;
+      transform: translateX(-150%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .fav-quote-title {
@@ -351,6 +365,13 @@
 
   .list-card-wrapper {
     width: 344px;
+    box-shadow: none;
+    transition: box-shadow 400ms ease-out;
+  }
+
+  .list-card-wrapper:hover,
+  .list-card-wrapper:focus {
+    box-shadow: 0 4px 23px 1px rgba(163, 161, 161, 1);
   }
 
   .btn-start {
