@@ -1,5 +1,25 @@
+.exercises-container {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 1440px) {
+  .exercises-container {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+}
+.exercise-loader-container {
+  position: relative;
+}
+
 .exercise-container {
   width: 100%;
+  display: none;
+}
+
+.exercise-container.active {
+  display: block;
 }
 
 .exercise-list {
@@ -53,10 +73,8 @@
   line-height: 18px;
 }
 
-.exercise-header .trash-container {
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
+.exercise-header .rating.hidden {
+  display: none;
 }
 
 .exercise-header .rating svg {
@@ -68,6 +86,9 @@
   align-items: center;
   border: none;
   fill: white;
+}
+.exercise-card-trash.hidden {
+  display: none;
 }
 
 .exercise-start-btn {
@@ -116,6 +137,10 @@
   margin-left: 16px;
 }
 
+.exercise-title::first-letter {
+  text-transform: uppercase;
+}
+
 .exercise-details {
   display: flex;
   justify-content: left;
@@ -155,5 +180,8 @@
 @media screen and (min-width: 1440px) {
   .exercise-card {
     width: 442px;
+  }
+  .exercise-container{
+    min-width: 900px;
   }
 }
