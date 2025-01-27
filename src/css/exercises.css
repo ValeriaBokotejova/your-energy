@@ -181,4 +181,7 @@
   .exercise-card {
     width: 442px;
   }
+  .exercise-container{
+    min-width: 900px;
+  }
 }

@@ -1,6 +1,6 @@
 import ExerciseList from './exercise.list.js';
 import ExerciseRequest from './exercise.request.js';
-import { showExercisesLoader, hideLoader } from './loader.js';
+import { showExercisesLoader, hideExercisesLoader } from './loader.js';
 import { showPagination, hidePagination } from './pagination.js';
 import { getExercisesOnPage } from './utils.js';
 
@@ -31,7 +31,7 @@ const fetchAndRenderFilteredExercises = async (
   } catch (error) {
     console.error(error);
   } finally {
-    hideLoader();
+    hideExercisesLoader();
   }
 };
 

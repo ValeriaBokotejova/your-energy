@@ -3,7 +3,7 @@ import sprite from '../img/sprite.svg';
 import noImage from '../img/no-image.jpg';
 import { createRating } from './create-rating.js';
 import { showLoader, hideLoader } from './loader.js';
-import { isIdPresentInLocalStorage} from './localStorage.js'
+import { isIdPresentInLocalStorage } from './localStorage.js';
 
 class Exercise {
   constructor(
@@ -139,7 +139,7 @@ class Exercise {
       )
       .join('');
 
-    var isExerciseInFavorites = isIdPresentInLocalStorage(this.id)
+    var isExerciseInFavorites = isIdPresentInLocalStorage(this.id);
 
     card.innerHTML = `
       <button type="button" class="modal-card-close-button">
@@ -173,9 +173,13 @@ class Exercise {
         <button type="button" data-exerciseid="${
           this.id
         }" class="modal-card-button favorite-button">
-        <span>${isExerciseInFavorites ? 'Remove favorite' : 'Add to favorites'}</span>
+        <span>${
+          isExerciseInFavorites ? 'Remove favorite' : 'Add to favorites'
+        }</span>
         <svg width="18" height="18">
-            <use href="${sprite}#heart" fill="${isExerciseInFavorites ? 'black' : 'none'}"></use>
+            <use href="${sprite}#heart" fill="${
+      isExerciseInFavorites ? 'black' : 'none'
+    }"></use>
           </svg>
         </button>
         <button type="button" data-exerciseid="${
