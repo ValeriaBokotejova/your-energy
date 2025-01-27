@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailPattern = /^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
       if (!emailPattern.test(email)) {
         iziToast.error({
-          message: 'Будь ласка, введіть коректну email адресу.',
+          title: 'Error',
+          message: 'Please enter a valid email address.',
           position: 'bottomRight',
         });
         return;
@@ -34,28 +35,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.status === 201) {
           iziToast.success({
-            message: result.message || 'Ви успішно підписались на розсилку!',
+            title: 'Success',
+            message: result.message || "We're excited to have you on board! 🎉 Thank you for subscribing to new exercises on Your Energy. You've just taken a significant step towards improving your fitness and well-being.",
             position: 'topRight',
           });
         } else if (response.status === 400) {
           iziToast.warning({
-            message: result.message || 'Некоректні дані. Перевірте ваш email.',
+            title: 'Warning',
+            message: result.message || 'Incorrect data. Please check your email.',
             position: 'topRight',
           });
         } else if (response.status === 409) {
           iziToast.warning({
-            message: result.message || 'Цей email вже підписаний.',
+            title: 'Warning',
+            message: result.message || 'This email has already been subscribed.',
             position: 'topRight',
           });
         } else {
           iziToast.error({
-            message: result.message || 'Сталася помилка. Спробуйте пізніше.',
+            title: 'Error',
+            message: result.message || 'There was an error. Please try again later.',
             position: 'topRight',
           });
         }
       } catch (error) {
         iziToast.error({
-          message: 'Не вдалося підключитися до сервера. Спробуйте пізніше.',
+          title: 'Error',
+          message: 'Could not connect to the server. Please try again later.',
           position: 'topRight',
         });
       }

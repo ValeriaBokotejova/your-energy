@@ -146,16 +146,19 @@
 .footer__button {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid var(--light);
   background-color: var(--light);
   color: var(--black);
+  border: 2px solid transparent; 
   border-radius: 30px;
   margin: 0 auto;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Animation */
 }
 .footer__button:hover {
   background-color: var(--black);
   color: var(--light);
+  border-color: var(--light);
+  transform: scale(1.05); 
 }
 @media screen and (min-width: 768px) {
   .footer__form-title {
@@ -210,12 +213,8 @@
 }
 
 .privacy-policy__text a {
-  gap: 8px;
-  color: var(--light);
-  text-decoration: none;
-  transition: color 250ms ease;
+  transition: var(--transition-color);
 }
-
 .privacy-policy__text a:hover {
   color: var(--grey);
 }
