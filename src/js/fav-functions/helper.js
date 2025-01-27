@@ -24,7 +24,7 @@ const drawMarkupList = listCards => {
               </svg>
               </button>
             </div>
-            <button class="btn-start" type="button">
+            <button class="exercise-start-btn" type="button">
               Start
               <svg width="16px" height="16px">
                 <use href="${sprite}#arrow"></use>
