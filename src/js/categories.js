@@ -6,7 +6,7 @@ import { getGategoriesOnPage } from './utils.js';
 import { ShowExercisesByCategory, HideExercises } from './exercises.js';
 import ExerciseFilterType from './exercise.filter-type.js';
 import { renderFilterByCategory } from './filters.js';
-import { showExercisesLoader, hideLoader } from './loader.js';
+import { showLoader, hideLoader } from './loader.js';
 
 const categoryListEl = document.querySelector('.category-list');
 const categoryContainerEl = document.querySelector('.category-container');
@@ -34,7 +34,7 @@ export const createCategoriesItems = categoriesArr => {
 
 export const showCategories = async (filter, queriedPage) => {
   try {
-    showExercisesLoader();
+    showLoader();
     const response = await fetchCategories(
       filter,
       queriedPage,
@@ -97,4 +97,5 @@ const findExerciseFilterType = filter => {
   );
 };
 
-if (categoryContainerEl) showCategories('Muscles', 1);
+if (categoryContainerEl)
+  showCategories('Muscles', 1);
