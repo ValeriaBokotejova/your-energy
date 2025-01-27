@@ -3,16 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
-      rel="stylesheet"
-    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your Energy</title>
+    <link href="./css/font.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <header>
+    <header class="header">
       <load src="./partials/header.html" />
     </header>
     <main>
@@ -23,13 +20,7 @@
             <div class="fav-bar">
               <div class="fav-box1-info">
                 <h2 class="fav-quote-title">Quote of the day</h2>
-                <p class="fav-quote-text">
-                  A lot of times I find that people who are blessed with the
-                  most talent don't ever develop that attitude, and the ones who
-                  aren't blessed in that way are the most competitive and have
-                  the biggest heart.
-                </p>
-                <p class="fav-quote-signature">Tom Brady</p>
+                <div class="js-quote"></div>
               </div>
               <div class="wrapper-img-content">
                 <div class="fav-box2-info">
@@ -46,17 +37,24 @@
                     "
                     src="./img/favorites/two-girls.jpg"
                     alt="two girls"
+                    loading="lazy"
                   />
                 </div>
               </div>
             </div>
-            <p class="fav-text-default">
+            <p class="fav-text-default is-visible">
               It appears that you haven't added any exercises to your favorites
               yet. To get started, you can add exercises that you like to your
               favorites for easier access in the future.
             </p>
-            <ul class="fav-list-card"></ul>
+            <div class="favorite-list-box">
+              <ul class="fav-list-card"></ul>
+              <div class="fav-loader">
+                <span class="loader hidden"></span>
+              </div>
+            </div>
           </div>
+          <div class="container pagination-container active"></div>
         </div>
       </section>
     </main>
@@ -64,6 +62,7 @@
     <load src="./partials/modal-exercise.html" />
     <load src="./partials/modal-rating.html" />
     <load src="./partials/backdrop-menu.html" />
+    <load src="./partials/scroll-up.html" />
 
     <script type="module" src="./main.js"></script>
   </body>

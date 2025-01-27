@@ -1,4 +1,11 @@
 .loader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +21,10 @@
   text-indent: -9999em;
   animation: mulShdSpin 1.3s infinite linear;
   transform: translateZ(0);
+}
+
+.loader.hidden {
+  display: none;
 }
 
 @keyframes mulShdSpin {

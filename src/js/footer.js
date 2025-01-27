@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailPattern = /^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
       if (!emailPattern.test(email)) {
         iziToast.error({
-          title: 'Error.',
+          title: 'Error',
           message: 'Please enter a valid email address.',
           position: 'bottomRight',
         });
@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
 
         if (response.status === 201) {
-          console.log("Triggering iziToast.success...");
           iziToast.success({
             title: 'Success',
             message: result.message || "We're excited to have you on board! 🎉 Thank you for subscribing to new exercises on Your Energy. You've just taken a significant step towards improving your fitness and well-being.",
