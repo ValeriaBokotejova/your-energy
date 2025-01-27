@@ -122,18 +122,18 @@
     padding: 12px 14px;
     background-color: var(--light);
     color: var(--black);
-    border: 2px solid transparent; /* Початково обводка прозора */
+    border: 2px solid transparent;
     border-radius: 30px;
     margin: 0 auto;
     text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Анімація */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .footer__button:hover {
-    background-color: var(--black); /* Чорний фон */
-    color: var(--light); /* Світлий текст */
-    border-color: var(--light); /* Обводка стає білою */
-    transform: scale(1.05); /* Невелике збільшення кнопки */
+    background-color: var(--black); 
+    color: var(--light); 
+    border-color: var(--light);
+    transform: scale(1.02);
 }
 
 

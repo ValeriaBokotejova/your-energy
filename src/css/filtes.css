@@ -77,7 +77,6 @@
 
 .filter-tab-button:hover {
     color: #000000;
-    background-color: #FFFFFF;
     cursor: pointer;
     transition: all 0.3s ease;
 }
