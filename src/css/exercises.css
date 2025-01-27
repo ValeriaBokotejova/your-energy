@@ -9,10 +9,15 @@
     gap: 32px;
   }
 }
+.exercise-loader-container {
+  position: relative;
+}
+
 .exercise-container {
   width: 100%;
   display: none;
 }
+
 .exercise-container.active {
   display: block;
 }

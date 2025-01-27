@@ -1,8 +1,10 @@
 .loader-container {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 20px;
+  margin-bottom: 20px;
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -21,7 +23,7 @@
   transform: translateZ(0);
 }
 
-.loader.hidden{
+.loader.hidden {
   display: none;
 }
 
