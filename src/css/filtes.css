@@ -75,6 +75,15 @@
     color: #24242499;
 }
 
+.filter-tab-button:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+
 .filter-tab-button.active {
     color: #242424;
 }
