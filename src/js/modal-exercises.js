@@ -10,8 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalPage = document.querySelector('.modal-page');
   const body = document.body;
 
+  const closeModal = () => {
+    modalOverlay.classList.add('hidden');
+    modalPage.classList.add('hidden');
+    modalPage.innerHTML = '';
+    body.classList.remove('no-scroll');
+  };
+
   document.addEventListener('click', event => {
     if (event.target.closest('.exercise-start-btn')) {
+      const button = event.target.closest('.exercise-start-btn');
+      button.blur();
+
       const dynamicId =
         event.target.closest('.exercise-start-btn').dataset.exerciseid ||
         getDynamicId();
@@ -35,10 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
       event.target.classList.contains('modal-overlay') ||
       event.target.closest('.modal-card-close-button')
     ) {
-      modalOverlay.classList.add('hidden');
-      modalPage.classList.add('hidden');
-      modalPage.innerHTML = '';
-      body.classList.remove('no-scroll');
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+      closeModal();
     }
   });
 });

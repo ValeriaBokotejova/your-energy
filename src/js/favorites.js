@@ -10,6 +10,7 @@ import { showPagination } from './pagination.js';
 import { getExercisesOnPage } from './utils.js';
 import { showLoader, hideLoader } from './loader.js';
 import ExerciseList from './exercise.list.js';
+import Exercise from './exercise.js';
 
 const list = document.querySelector('.fav-list-card');
 const textDefault = document.querySelector('.fav-text-default');
@@ -21,7 +22,7 @@ let listId = [];
 
 if (window.location.pathname.endsWith('/favorites.html')) {
   list.addEventListener('click', e => {
-    if (e.target.nodeName === 'use') {
+    if (e.target.closest('.btn-trash')) {
       const idCard = e.target.closest('.list-card-item').dataset.id;
       const answer = removeIdFromLocalStorage(idCard);
       if (answer) {
@@ -107,3 +108,43 @@ const readFromLS = async (page = 1) => {
 if (list) {
   readFromLS();
 }
+
+
+document.addEventListener('click', event => {
+  if (event.target.closest('.exercise-start-btn')) {
+    const exerciseId = event.target.closest('.list-card-item').dataset.id;
+    if (exerciseId) {
+      Exercise.fetchById(exerciseId)
+        .then(exercise => {
+          const modalOverlay = document.querySelector('.modal-overlay');
+          const modalPage = document.querySelector('.modal-page');
+          const body = document.body;
+
+          modalPage.innerHTML = '';
+          modalPage.append(exercise.renderCard());
+          modalOverlay.classList.remove('hidden');
+          modalPage.classList.remove('hidden');
+          body.classList.add('no-scroll');
+        })
+        .catch(error => {
+          console.error('Error fetching exercise:', error);
+        });
+    }
+  }
+});
+
+document.addEventListener('click', event => {
+  if (
+    event.target.classList.contains('modal-overlay') ||
+    event.target.closest('.modal-card-close-button')
+  ) {
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const modalPage = document.querySelector('.modal-page');
+    const body = document.body;
+
+    modalOverlay.classList.add('hidden');
+    modalPage.classList.add('hidden');
+    modalPage.innerHTML = '';
+    body.classList.remove('no-scroll');
+  }
+});
