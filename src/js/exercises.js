@@ -1,15 +1,18 @@
 import ExerciseList from './exercise.list.js';
 import ExerciseRequest from './exercise.request.js';
-import { showLoader, hideLoader } from './loader.js';
+import { showExercisesLoader, hideLoader } from './loader.js';
 import { showPagination, hidePagination } from './pagination.js';
 import { getExercisesOnPage } from './utils.js';
 
 const exerciseContainer = document.querySelector('.exercise-container');
 let exerciseList = new ExerciseList();
 
-const fetchAndRenderFilteredExercises = async (exerciseRequest, queriedPage = 1) => {
+const fetchAndRenderFilteredExercises = async (
+  exerciseRequest,
+  queriedPage = 1
+) => {
   try {
-    showLoader();
+    showExercisesLoader();
     exerciseRequest.page = queriedPage;
     exerciseList = await ExerciseList.fetchWithFilters(exerciseRequest);
     const list = exerciseList.render(true, false);
@@ -32,8 +35,15 @@ const fetchAndRenderFilteredExercises = async (exerciseRequest, queriedPage = 1)
   }
 };
 
-export function ShowExercisesByCategory(filterType, FilterValue, keyword = null) {
-  const exerciseRequest = new ExerciseRequest({ page: 1, limit: getExercisesOnPage() });
+export function ShowExercisesByCategory(
+  filterType,
+  FilterValue,
+  keyword = null
+) {
+  const exerciseRequest = new ExerciseRequest({
+    page: 1,
+    limit: getExercisesOnPage(),
+  });
   if (keyword) {
     exerciseRequest.addKeyword(keyword);
   }
