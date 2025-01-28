@@ -1,4 +1,4 @@
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 320px) {
   .fav-loader {
     position: fixed;
     top: 80%;
@@ -35,7 +35,13 @@
     background-color: var(--black);
     opacity: 0;
     transform: translateX(-150%);
-    animation: slideBox 600ms ease-out forwards;
+    animation: slideBox 300ms ease-out forwards;
+  }
+
+  .wrapper-img-content {
+    opacity: 0;
+    transform: translateX(-150%);
+    animation: slideBox 300ms ease-out forwards;
   }
 
   @keyframes slideBox {
